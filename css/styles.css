@@ -39,13 +39,13 @@ main{
    font-size: 16px;
    
 }
-.menu-thead tr{
+.table-thead tr{
    text-align: center !important;
    
 }
-.menu-tbody tr{
+.table-tbody tr{
    text-align: center !important;
-   
+   background-color: aqua;
 }
 
 .header{
