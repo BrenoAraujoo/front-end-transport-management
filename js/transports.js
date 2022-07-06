@@ -7,7 +7,7 @@ window.addEventListener('load',async ()=>{
 })
 
 const renderTransportsTable = () =>{
-    let trasnportTable = 
+    let transportTable = 
     '<table class="table table-striped table-hover"><thead class="table-thead"><th>#id</th><th>Transportadora</th><th>Data</th><th>Valor</th><th>Tipo</th><th>Obs</th><tbody = class ="table-tbody">'
 
 
@@ -15,7 +15,7 @@ const renderTransportsTable = () =>{
 allTransports.map((transport)=>{
     let transportHtml = 
     `<tr>
-    <td>${transport.id}</td>
+    <td><a href ="transports_details.html?id=${transport.id}">${transport.id}</a></td>
     <td>${transport.company.name}</td>
     <td>${transport.date}</td>
     <td>${transport.value}</td>
@@ -23,9 +23,9 @@ allTransports.map((transport)=>{
     <td>${transport.observation}</td>
     </tr>` 
 
-    trasnportTable += transportHtml;
+    transportTable += transportHtml;
 })
-trasnportTable+= '<thead></tbody></table>'
-mainTransports.innerHTML = trasnportTable
+transportTable+= '<thead></tbody></table>'
+mainTransports.innerHTML = transportTable
 }
 

@@ -12,4 +12,4 @@ const getTransports = async ()=>{
     renderTransportsTable();
     
 }
-console.log(allTransports)
+
