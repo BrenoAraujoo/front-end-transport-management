@@ -1,9 +1,31 @@
 
-window.addEventListener('load',async ()=>{
+let allTransports = [];
+var mainTransports;
 
+const url = 'http://localhost:8080/Transports'
+const getTransports = async ()=>{
+
+    const resp = await fetch(url)
+    const json = await resp.json();
+
+    allTransports = json;
+    renderTransportsTable();
+    
+}
+async function getTransporById (id){
+
+    const resp = await fetch(`${url}/${id}`)
+    const json = await resp.json();
+    
+}
+
+
+window.addEventListener('load',async ()=>{
     mainTransports = document.querySelector('#main-transports')
     await getTransports();
     console.log(allTransports)
+   
+
 })
 
 const renderTransportsTable = () =>{
