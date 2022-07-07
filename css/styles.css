@@ -42,12 +42,13 @@ main{
 .table-hover a{
    color: blue !important;
 }
-.table-thead tr{
+.table-hover thead{
    text-align: center !important;
    
 }
-.table-tbody tr{
+.table-hover tbody{
    text-align: center !important;
+
 }
 
 .header{

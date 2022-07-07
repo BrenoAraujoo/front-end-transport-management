@@ -1,53 +1,69 @@
+"use strict"
+const url = "http://localhost:8080/Transports"
+const  loading = document.querySelector("#loading")
 
 let allTransports = [];
-var mainTransports;
 
-const url = 'http://localhost:8080/Transports'
-const getTransports = async ()=>{
+window.addEventListener('load', ()=>{
+getAllTransports();
+})
 
-    const resp = await fetch(url)
-    const json = await resp.json();
+const getAllTransports = async () =>{
+    const response = await fetch(url)
+    const data = await response.json();
 
-    allTransports = json;
-    renderTransportsTable();
-    
-}
-async function getTransporById (id){
-
-    const resp = await fetch(`${url}/${id}`)
-    const json = await resp.json();
-    
-}
-
-
-window.addEventListener('load',async ()=>{
-    mainTransports = document.querySelector('#main-transports')
-    await getTransports();
+    allTransports = data
     console.log(allTransports)
-   
+    renderTable();
 
-})
-
-const renderTransportsTable = () =>{
-    let transportTable = 
-    '<table class="table table-striped table-hover"><thead class="table-thead"><th>#id</th><th>Transportadora</th><th>Data</th><th>Valor</th><th>Tipo</th><th>Obs</th><tbody = class ="table-tbody">'
-
-
-
-allTransports.map((transport)=>{
-    let transportHtml = 
-    `<tr>
-    <td><a href ="transports_details.html?id=${transport.id}">${transport.id}</a></td>
-    <td>${transport.company.name}</td>
-    <td>${transport.date}</td>
-    <td>${transport.value}</td>
-    <td>${transport.transportType}</td>
-    <td>${transport.observation}</td>
-    </tr>` 
-
-    transportTable += transportHtml;
-})
-transportTable+= '<thead></tbody></table>'
-mainTransports.innerHTML = transportTable
+    loading.style.display = 'none'
 }
 
+function renderTable() {
+
+    const table = document.querySelector("#transport-table")
+    const thead = document.querySelector("#thead")
+    const tbody = document.querySelector("#tbody")
+
+    const header_line = document.createElement("tr")
+
+    const th_id = document.createElement("th")
+    const th_transp = document.createElement("th")
+    const th_data = document.createElement("th")
+    const th_tipo = document.createElement("th")
+
+    th_id.innerText = 'Id'
+    th_transp.innerText = 'Transportadora'
+    th_data.innerText = 'Data'
+    th_tipo.innerText = 'Tipo'
+
+    header_line.appendChild(th_id)
+    header_line.appendChild(th_transp)
+    header_line.appendChild(th_data)
+    header_line.appendChild(th_tipo)
+   
+    thead.appendChild(header_line)
+
+    allTransports.map((transport) => {
+        let row =document.createElement("tr")
+
+        let td_id =document.createElement("td")
+        let td_transp =document.createElement("td")
+        let td_data =document.createElement("td")
+        let td_tipo =document.createElement("td")
+      
+        td_id.innerText = transport.id;
+        td_transp.innerText = transport.company.name;
+        td_data.innerText = transport.date;
+        td_tipo.innerText = transport.transportType;
+
+        row.appendChild(td_id)
+        row.appendChild(td_transp)
+        row.appendChild(td_data)
+        row.appendChild(td_tipo)
+        tbody.appendChild(row)
+
+    })
+
+    table.appendChild(thead,tbody)
+}

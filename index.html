@@ -9,16 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
-    <script src="./js/Request API.js"></script>
 
-    <script src="./js/transports.js"></script>
+    <script src="./js/transports.js" defer></script>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
 
-    <title>Usuarios</title>
+    <title>Transportes</title>
 </head>
-
-
 
 <body>
 
@@ -35,9 +32,13 @@
 
     <div class="main-container">
         <h2 class="h2-title">Gerenciar Transportes</h2>
+        <p class = "h2-title loading" id="loading">Carregando...</p>
 
         <main id="main-transports">
-
+            <table id="transport-table" class="table table-striped table-hover">
+                <thead id="thead"></thead>
+                <tbody id="tbody"></tbody>
+            </table>
         </main>
     </div>
 
