@@ -1,14 +1,18 @@
 "use strict"
 const url = "http://localhost:8080/Transports"
-const  loading = document.querySelector("#loading")
+const loading = document.querySelector("#loading")
+const urlSearchParam = new URLSearchParams(window.location.search)
+const transportId = urlSearchParam.get("id")
+
+
 
 let allTransports = [];
 
-window.addEventListener('load', ()=>{
-getAllTransports();
+
+window.addEventListener('load', () => {
 })
 
-const getAllTransports = async () =>{
+const getAllTransports = async () => {
     const response = await fetch(url)
     const data = await response.json();
 
@@ -18,6 +22,20 @@ const getAllTransports = async () =>{
 
     loading.style.display = 'none'
 }
+const getOneTransport = async(id) =>{
+
+    const response = await fetch(`${url}/${id}`)
+    const data = await response.json();
+    console.log(data)
+
+    const transport_detail = document.querySelector("#transport-detail")
+
+    transport_detail.innerText  = "Detalhes do transporte #" + data.id
+
+    loading.style.display = 'none'
+    
+}
+
 
 function renderTable() {
 
@@ -41,19 +59,22 @@ function renderTable() {
     header_line.appendChild(th_transp)
     header_line.appendChild(th_data)
     header_line.appendChild(th_tipo)
-   
+
     thead.appendChild(header_line)
 
     allTransports.map((transport) => {
-        let row =document.createElement("tr")
+        let row = document.createElement("tr")
+        let url_id = document.createElement("a")
+        url_id.setAttribute("href", "transports_details.html")
 
-        let td_id =document.createElement("td")
-        let td_transp =document.createElement("td")
-        let td_data =document.createElement("td")
-        let td_tipo =document.createElement("td")
-      
+        let td_id = document.createElement("td")
+        let td_transp = document.createElement("td")
+        let td_data = document.createElement("td")
+        let td_tipo = document.createElement("td")
+
+
         td_id.innerText = transport.id;
-        td_transp.innerText = transport.company.name;
+        td_transp.innerHTML = `<a href= /transports_details.html?id=${transport.id}> ${transport.company.name}</a>`
         td_data.innerText = transport.date;
         td_tipo.innerText = transport.transportType;
 
@@ -65,5 +86,12 @@ function renderTable() {
 
     })
 
-    table.appendChild(thead,tbody)
+    table.appendChild(thead, tbody)
+}
+
+if(!transportId){
+    getAllTransports();
+}else{
+    getOneTransport(transportId)
+    console.log(transportId)
 }
